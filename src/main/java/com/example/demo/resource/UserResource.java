@@ -25,7 +25,7 @@ public class UserResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById (@PathVariable Long id) {
+    public ResponseEntity<User> findById(@PathVariable Long id) {
         User obj = service.findByyId(id);
         return ResponseEntity.ok().body(obj);
     }
@@ -36,7 +36,12 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(obj.getId()).toUri();
-
         return ResponseEntity.created(uri).body(obj);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
